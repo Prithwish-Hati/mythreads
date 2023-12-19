@@ -12,8 +12,8 @@ const TopBar = () => {
 
   const links = [
     { label: "Home", href: "/" },
-    { label: "Compose", href: "compose" },
-    { label: "Profile", href: "profile" },
+    { label: "Compose", href: "/compose" },
+    { label: "Profile", href: "/profile" },
   ];
   return (
     <nav className="bg-dark-1 py-5 px-36">

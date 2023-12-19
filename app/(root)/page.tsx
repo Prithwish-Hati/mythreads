@@ -24,7 +24,7 @@ export default async function Home() {
               author= {thread.author}
               createdAt= {thread.createdAt.toLocaleDateString()}
               comments= {thread.children}
-              isComment= {false}
+              isComment= {thread.children.length > 0}
               />
             ))}
           </>
