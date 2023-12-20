@@ -25,13 +25,15 @@ interface Props {
 }
 
 const Comment = ({ currentUserImg, threadId, currentUserId }: Props) => {
- 
+ const router = useRouter();
+
  const form = useForm<z.infer<typeof CommentValidation>>({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
       thread: "",
     },
   });
+
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
     await addCommentToThread(
@@ -41,6 +43,8 @@ const Comment = ({ currentUserImg, threadId, currentUserId }: Props) => {
     )
 
     form.reset();
+    
+    router.refresh(); //reloads the page onSubmit
   };
 
   return (

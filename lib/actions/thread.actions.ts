@@ -133,7 +133,6 @@ export const addCommentToThread = async (
       parentId: threadId,
     });
 
-    console.log(commentThread)
     //Create new thread with comment text
     const savedCommentThread = await commentThread.save();
 
