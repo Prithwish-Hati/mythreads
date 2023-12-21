@@ -114,7 +114,7 @@ export const fetchThreadById = async (id: string) => {
 export const addCommentToThread = async (
   commentText: string,
   userId: string,
-  threadId: string,
+  threadId: string
   // path: string,
 ) => {
   connectToDB();
@@ -139,8 +139,27 @@ export const addCommentToThread = async (
     originalThread.children.push(savedCommentThread._id);
 
     await originalThread.save();
-  
   } catch (error: any) {
     throw new Error(`Error adding comment to thread: ${error.message}`);
+  }
+};
+
+export const addLikeToThread = async (userId: any, threadId: any) => {
+  connectToDB();
+
+  try {
+    const thread = await Thread.findById(threadId);
+    if (thread.likes.includes(userId)) {
+      console.log("You have already liked this post");
+    } else {
+      const likeThread = await Thread.findByIdAndUpdate(threadId, {
+        $push: { likes: userId },
+      });
+
+      await likeThread.save();
+      console.log(likeThread.likes);
+    }
+  } catch (error: any) {
+    throw new Error(`Can't like thread: ${error.message}`);
   }
 };

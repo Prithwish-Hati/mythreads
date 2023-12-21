@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import LikeButton from "./LikeButton";
+import { fetchThreadById } from "@/lib/actions/thread.actions";
+import { useRouter } from "next/navigation";
 
 interface Props {
   id: string;
-  currentUserId: string;
+  userId: any;
   parentId: string | null;
   content: string;
   author: {
@@ -18,20 +21,28 @@ interface Props {
     };
   }[]; // comments array
   isComment?: boolean;
+  isLiked?: boolean;
+  likes?: any;
 }
 
-const ThreadCard = ({
+const ThreadCard = async ({
   id,
-  currentUserId,
+  userId,
   parentId,
   content,
   author,
   createdAt,
   comments,
   isComment,
+  isLiked,
+  likes,
 }: Props) => {
+  const thread = await fetchThreadById(id);
+
   return (
-    <article className={`text-light-1 flex gap-3 mb-10 border-b-2 border-dark-4`}>
+    <article
+      className={`text-light-1 flex gap-3 mb-10 border-b-2 border-dark-4`}
+    >
       <div className="w-auto">
         <Image
           src={author?.image}
@@ -45,30 +56,42 @@ const ThreadCard = ({
         <h3 className="font-semibold">{author?.name}</h3>
         <p className="mt-1 text-sm">{content}</p>
 
-        <div className="mt-3 flex gap-3 justify-start items-center">
-          <Image
-            src="/like.svg"
-            alt="like icon"
-            width={25}
-            height={25}
-            className="cursor-pointer"
-          />
-          <Link href={`/thread/${id}`}>
-            <Image
-              src="/comment.svg"
-              alt="comment icon"
-              width={20}
-              height={20}
-              className="cursor-pointer"
-            />
-          </Link>
-        </div>
-        {isComment && comments.length > 0 && (
-        <Link href={`thread/${id}`} className="text-slate-400 text-sm mt-3 hover:underline">{comments.length} Replies</Link>
-      )}
-      </div>
+        <div className="mt-3 flex gap-5 justify-start items-center">
+          <div className="flex justify-start items-center gap-1">
+            <p className="text-slate-300 text-sm">Double Tap to </p>
+            <LikeButton userId={userId} threadId={thread._id.toString()} />
+          </div>
 
-      
+          <div className="flex justify-start items-center gap-1">
+            <p className="text-slate-300 text-sm">Comment</p>
+            <Link href={`/thread/${id}`}>
+              <Image
+                src="/comment.svg"
+                alt="comment icon"
+                width={20}
+                height={20}
+                className="cursor-pointer"
+              />
+            </Link>
+          </div>
+        </div>
+        <div className="flex mt-1 text-sm text-slate-400">
+          {isComment && comments.length > 0 && (
+            <div className="flex justify-start items-center">
+              <Link
+                href={`thread/${id}`}
+                className="text-slate-400 hover:underline"
+              >
+                {comments.length} Replies
+              </Link>
+
+              <p className="mx-1">&#x2022;</p>
+            </div>
+          )}
+
+          {isLiked && likes.length > 0 && <p> {likes.length} Likes</p>}
+        </div>
+      </div>
     </article>
   );
 };

@@ -17,13 +17,15 @@ const Page = async ({ params }: { params: { id: string } }) => {
         <ThreadCard
           key={thread._id.toString()}
           id={thread._id.toString()}
-          currentUserId={user?.id || ""}
+          userId={userData?._id.toString()}
           parentId={thread.parentId}
           content={thread.text}
           author={thread.author}
           createdAt={thread.createdAt.toLocaleDateString()}
           comments={thread.children}
-          isComment={false}
+          isComment={thread.children.length > 0}
+          isLiked={thread.likes.length > 0}
+          likes={thread?.likes}
         />
 
         <Comment
@@ -36,15 +38,17 @@ const Page = async ({ params }: { params: { id: string } }) => {
       <section className="mt-10">
         {thread.children.map((child: any) => (
           <ThreadCard
-          key={child._id.toString()}
-          id={child._id.toString()}
-          currentUserId={user?.id || ""}
-          parentId={child.parentId}
-          content={child.text}
-          author={child.author}
-          createdAt={child.createdAt.toLocaleDateString()}
-          comments={child.children}
-          isComment
+            key={child._id.toString()}
+            id={child._id.toString()}
+            userId={userData?._id.toString()}
+            parentId={child.parentId}
+            content={child.text}
+            author={child.author}
+            createdAt={child.createdAt.toLocaleDateString()}
+            comments={child.children}
+            isComment={child.children.length > 0}
+            isLiked={child.likes.length > 0}
+            likes={child?.likes}
           />
         ))}
       </section>
