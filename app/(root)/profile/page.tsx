@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { fetchUser, fetchUserThreads } from "@/lib/actions/user.actions";
+import { fetchUserThreads } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 
@@ -10,31 +10,31 @@ const ProfilePage = async () => {
   const userData = await fetchUserThreads(user?.id);
 
   return (
-    <main className="text-light-1 px-36">
-      <h1 className="text-4xl font-bold text-center">Profile</h1>
+    <main className="text-light-1 px-3 lg:px-36">
+      <h1 className="text-4xl font-bold text-center hidden lg:block">Profile</h1>
 
-      <section className="mt-10">
+      <section className="lg:mt-10">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-3xl font-bold">{userData.name}</h2>
-            <h3 className="">@{userData.username}</h3>
+            <h2 className="text-xl lg:text-3xl font-bold">{userData.name}</h2>
+            <h3 className="2xl:text-lg">@{userData.username}</h3>
           </div>
           <Image
             src={userData.image}
             alt="Profile Photo"
-            width={80}
-            height={80}
-            className="rounded-full"
+            width={60}
+            height={60}
+            className="rounded-full object-contain lg:w-[80px]"
           />
         </div>
-        <p className="mt-5">{userData.bio}</p>
+        <p className="mt-5 2xl:text-lg">{userData.bio}</p>
 
-        <Button
+        {/* <Button
           type="button"
           className="w-full border-2 bg-transparent mt-7 rounded-lg border-dark-4 text-semibold"
         >
           Edit Profile
-        </Button>
+        </Button> */}
       </section>
 
       <section>
@@ -51,9 +51,9 @@ const ProfilePage = async () => {
               <Image
                 src={userData?.image}
                 alt="profile-photo"
-                width={55}
-                height={55}
-                className="object-contain rounded-full"
+                width={40}
+                height={40}
+                className="object-contain rounded-full lg:w-[55px]"
               />
               <div>
                 <h2 className="font-semibold">{userData.username}</h2>

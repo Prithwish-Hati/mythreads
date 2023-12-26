@@ -23,9 +23,9 @@ const LikeButton = ({ userId, threadId}: Props) => {
       <Image
         src="/like.svg"
         alt="like icon"
-        width={25}
-        height={25}
-        className="cursor-pointer"
+        width={20}
+        height={20}
+        className="cursor-pointer object-contain lg:w-[25px]"
       />
     </button>
   );

@@ -41,7 +41,7 @@ const ThreadCard = async ({
 
   return (
     <article
-      className={`text-light-1 flex gap-3 mb-10 border-b-2 border-dark-4`}
+      className={`text-light-1 flex gap-3 mb-3 lg:mb-10 border-b-2 border-dark-4`}
     >
       <div className="w-auto">
         <Image
@@ -53,29 +53,25 @@ const ThreadCard = async ({
         />
       </div>
       <div className="mb-3 w-full">
-        <h3 className="font-semibold">{author?.name}</h3>
-        <p className="mt-1 text-sm">{content}</p>
+        <h3 className="font-semibold text-sm lg:text-base 2xl:text-lg">
+          {author?.name}
+        </h3>
+        <p className="mt-1 text-xs lg:text-sm 2xl:text-base">{content}</p>
 
-        <div className="mt-3 flex gap-5 justify-start items-center">
-          <div className="flex justify-start items-center gap-1">
-            <p className="text-slate-300 text-sm">Double Tap to </p>
-            <LikeButton userId={userId} threadId={thread._id.toString()} />
-          </div>
+        <div className="mt-1 lg:mt-3 flex gap-1 lg:gap-5 justify-start items-center">
+          <LikeButton userId={userId} threadId={thread._id.toString()} />
 
-          <div className="flex justify-start items-center gap-1">
-            <p className="text-slate-300 text-sm">Comment</p>
-            <Link href={`/thread/${id}`}>
-              <Image
-                src="/comment.svg"
-                alt="comment icon"
-                width={20}
-                height={20}
-                className="cursor-pointer"
-              />
-            </Link>
-          </div>
+          <Link href={`/thread/${id}`}>
+            <Image
+              src="/comment.svg"
+              alt="comment icon"
+              width={15}
+              height={15}
+              className="cursor-pointer lg:w-[20px] object-contain"
+            />
+          </Link>
         </div>
-        <div className="flex mt-1 text-sm text-slate-400">
+        <div className="flex mt-1 text-xs lg:text-sm text-slate-400">
           {isComment && comments.length > 0 && (
             <div className="flex justify-start items-center">
               <Link

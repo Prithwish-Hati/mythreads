@@ -46,7 +46,7 @@ const PostThread = ({ userId }: Props) => {
   return (
     <Form {...form}>
       <form
-        className="mt-10 flex flex-col justify-start gap-10"
+        className="mt-5 xl:mt-10 flex flex-col justify-start gap-10"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -58,7 +58,7 @@ const PostThread = ({ userId }: Props) => {
                 Content
               </FormLabel>
               <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1">
-                <Textarea rows={15} {...field} />
+                <Textarea rows={13} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,5 +1,5 @@
 import ThreadCard from "@/components/cards/ThreadCard";
-import { fetchThreadById, fetchThreads } from "@/lib/actions/thread.actions";
+import { fetchThreads } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 
@@ -12,7 +12,7 @@ export default async function Home() {
   
   const result = await fetchThreads(1, 30);
   return (
-    <main className="flex justify-center px-28">
+    <main className="flex justify-center px-3 lg:px-28">
       <section>
         {result.threads.length === 0 ? (
           <p className="text-white">No threads found</p>
