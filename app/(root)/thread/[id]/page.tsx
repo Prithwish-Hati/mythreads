@@ -3,6 +3,7 @@ import Comment from "@/components/forms/Comment";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
@@ -11,6 +12,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const thread = await fetchThreadById(params.id);
 
   const userData = await fetchUser(user.id);
+  if (!userData?.onboarded) redirect("/onboarding");
   return (
     <main className="text-light-1">
       <section>

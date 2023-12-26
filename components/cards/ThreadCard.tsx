@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import LikeButton from "./LikeButton";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
-import { useRouter } from "next/navigation";
+import { fetchUser } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs";
 
 interface Props {
   id: string;
@@ -38,6 +40,11 @@ const ThreadCard = async ({
   likes,
 }: Props) => {
   const thread = await fetchThreadById(id);
+
+  const user = await currentUser();
+  if (!user) return null;
+  const userData = await fetchUser(user.id);
+  if (!userData?.onboarded) redirect("/onboarding");
 
   return (
     <article

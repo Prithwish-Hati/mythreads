@@ -21,14 +21,14 @@ const OnboardingPage = async () => {
   };
 
   return (
-    <main className="p-16">
+    <main className="p-5 lg:p-16">
       <h1 className="text-4xl font-bold text-light-1 text-center">
         Onboarding
       </h1>
       <p className="text-light-1 text-center">
         Finish your profile to use threads
       </p>
-      <section className="px-56">
+      <section className="mt-5 lg:px-56">
         <AccountProfile user={userData} btnTitle="Continue" />
       </section>
     </main>

@@ -1,12 +1,14 @@
 import PostThread from "@/components/forms/PostThread";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 const ComposePage = async () => {
   const user = await currentUser();
   if (!user) return null;
 
   const userData = await fetchUser(user.id);
+  if (!userData?.onboarded) redirect("/onboarding");
 
   return (
     <main>
